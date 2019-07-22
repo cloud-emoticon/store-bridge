@@ -4,6 +4,7 @@ import { File } from './api'
 
 const app = express();
 const github = new Octokit()
+const port = process.env.Port || 3000
 
 app.get('/', (req, res) => res.send('Velcome to the Store'));
 
@@ -36,4 +37,4 @@ app.get('/json', async (req, res) => {
     )
 })
 
-app.listen(3000, () => console.log('Example app listening on port 3000!'));
+app.listen(port, () => console.log(`listening on port ${port}`));
