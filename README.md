@@ -16,10 +16,10 @@ yarn
 
 First, run this to compile TypeScript live
 ```bash
-npm run watch-ts
+yarn watch-ts
 ```
 
 Then, run this to start server with hot-reload
 ```bash
-npm run watch-node
+yarn watch-node
 ```
