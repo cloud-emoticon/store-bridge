@@ -7,7 +7,7 @@
   "private": false,
   "scripts": {
     "build-ts": "tsc",
-    "start": "npm run serve",
+    "start": "yarn serve",
     "serve": "node dist/server.js",
     "watch-node": "nodemon dist/server.js",
     "watch-ts": "tsc -w"
