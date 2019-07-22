@@ -4,7 +4,7 @@ import { File } from './api'
 
 const app = express();
 const github = new Octokit()
-const port = process.env.Port || 3000
+const port = process.env["PORT"] || 3000
 
 app.get('/', (req, res) => res.send('Velcome to the Store'));
 
