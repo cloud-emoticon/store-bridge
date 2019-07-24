@@ -6,8 +6,22 @@ app.set('view engine', 'ejs');
 
 const port = process.env["PORT"] || 3000
 
-app.get('/', (req, res) => {
-    res.render('index')
+app.get('/', async (req, res) => {
+    res.render('index', {
+        repos: (await fetchRepos()).map(repo => {
+            const codeurl = repo.codeurl
+            let appUrl = codeurl
+            if (codeurl.startsWith("http://")) {
+                appUrl = codeurl.replace("http://", "cloudemoticon://")
+            } else if (codeurl.startsWith("https://")) {
+                appUrl = codeurl.replace("https://", "cloudemoticon://")
+            }
+            return {
+                ...repo,
+                appurl: appUrl
+            }
+        })
+    })
 });
 
 app.get('/json', async (req, res) => {
