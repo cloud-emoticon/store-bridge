@@ -15,3 +15,12 @@ export interface MetaResponse {
         avatarUrl?: string
     }
 }
+
+export interface Repository {
+    name: string,
+    codeurl: string,
+    introduction: string,
+    creator: string,
+    creatorurl?: string,
+    iconurl?: string
+}
