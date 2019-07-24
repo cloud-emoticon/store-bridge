@@ -36,6 +36,11 @@ app.get('/json', async (req, res) => {
                     codeurl = `https://raw.githubusercontent.com/cloud-emoticon/store-repos/master/${possibleLocalFilename}.json`
                 } else if (meta.location.type === "localXml") {
                     codeurl = `https://raw.githubusercontent.com/cloud-emoticon/store-repos/master/${possibleLocalFilename}.xml`
+                } else if (meta.location.type === "remoteJson") {
+                    codeurl = meta.location.remoteUrl as string
+                } else {
+                    console.error(`unknown location type ${meta.location.type} for meta path ${metaPath}`)
+                    return null
                 }
                 return {
                     "name": meta.name,
@@ -46,7 +51,7 @@ app.get('/json', async (req, res) => {
                     "iconurl": meta.author.avatarUrl // todo: default one
                 }
             } catch (e) {
-                console.error(`fail to obtain repo from path ${metaPath}, reason ${e}`)
+                console.error(`fail to obtain repo from meta path ${metaPath}, reason ${e}`)
                 return null
             }
         })

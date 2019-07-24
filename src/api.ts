@@ -5,8 +5,8 @@ export interface GitHubFile {
 export interface MetaResponse {
     name: string,
     location: {
-        type: "localJson" | "localXml",
-        url?: string
+        type: "localJson" | "localXml" | "remoteJson",
+        remoteUrl?: string
     },
     description: string,
     author: {
