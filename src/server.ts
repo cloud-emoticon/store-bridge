@@ -1,14 +1,25 @@
 import express from 'express';
 import fetchRepos from './fetchRepos'
+import { Repository } from './api'
+
+const port = process.env["PORT"] || 3000
+if (!process.env["FETCH_INTERVAL_SECONDS"]) {
+    throw new Error(`env var FETCH_INTERVAL_SECONDS not found`)
+}
+const fetchIntervalSeconds = process.env["FETCH_INTERVAL_SECONDS"] as unknown as number
 
 const app = express();
 app.set('view engine', 'ejs');
 
-const port = process.env["PORT"] || 3000
+let repos: Repository[] = await fetchRepos()
+setInterval(async () => {
+    console.log('refreshing repos...')
+    repos = await fetchRepos()
+}, fetchIntervalSeconds * 1000)
 
 app.get('/', async (req, res) => {
     res.render('index', {
-        repos: (await fetchRepos()).map(repo => {
+        repos: (repos.map(repo => {
             const codeurl = repo.codeurl
             let appUrl = codeurl
             if (codeurl.startsWith("http://")) {
@@ -26,7 +37,7 @@ app.get('/', async (req, res) => {
 
 app.get('/json', async (req, res) => {
     try {
-        res.json(await fetchRepos())
+        res.json(repos)
     } catch (e) {
         console.error(e)
         res.status(500)

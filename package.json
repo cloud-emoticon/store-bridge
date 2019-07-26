@@ -9,7 +9,7 @@
     "postinstall": "yarn build-ts",
     "build-ts": "tsc",
     "serve": "node dist/server.js",
-    "watch-node": "nodemon dist/server.js",
+    "watch-node": "FETCH_INTERVAL_SECONDS=10 nodemon dist/server.js",
     "watch-ts": "tsc -w"
   },
   "devDependencies": {
