@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 import express from 'express';
 import fetchRepos from './fetchRepos'
 import { Repository } from './api'
@@ -11,15 +13,21 @@ const fetchIntervalSeconds = process.env["FETCH_INTERVAL_SECONDS"] as unknown as
 const app = express();
 app.set('view engine', 'ejs');
 
-let repos: Repository[] = await fetchRepos()
+let repos: Repository[]
+(async () => {
+    console.log('fetching repos...')
+    repos = await fetchRepos()
+    console.log('fetched repos...')
+})()
 setInterval(async () => {
     console.log('refreshing repos...')
     repos = await fetchRepos()
+    console.log('refreshed repos...')
 }, fetchIntervalSeconds * 1000)
 
 app.get('/', async (req, res) => {
     res.render('index', {
-        repos: (repos.map(repo => {
+        repos: repos.map(repo => {
             const codeurl = repo.codeurl
             let appUrl = codeurl
             if (codeurl.startsWith("http://")) {

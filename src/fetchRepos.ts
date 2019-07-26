@@ -2,7 +2,14 @@ import rp from 'request-promise-native';
 import Octokit from '@octokit/rest'
 import { GitHubFile, MetaResponse, Repository } from './api'
 
-const github = new Octokit()
+if (!process.env["GITHUB_AUTH"]) {
+    throw new Error(`env var GITHUB_AUTH not found`)
+}
+const githubAuth = process.env["GITHUB_AUTH"]
+
+const github = new Octokit({
+    auth: githubAuth
+})
 
 const fetchRepos: () => Promise<Repository[]> = async () => {
     const repo = await github.repos.getContents({
