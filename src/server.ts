@@ -1,5 +1,7 @@
 require('dotenv').config()
 
+// @ts-ignore
+import cors from "cors";
 import express from 'express';
 import fetchRepos from './fetchRepos'
 import { Repository } from './api'
@@ -43,7 +45,7 @@ app.get('/', async (req, res) => {
     })
 });
 
-app.get('/json', async (req, res) => {
+app.get('/json', cors(), async (req, res) => {
     try {
         res.json(repos)
     } catch (e) {
