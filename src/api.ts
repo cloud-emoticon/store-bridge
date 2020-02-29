@@ -1,26 +1,26 @@
 export interface GitHubFile {
-    path: string
+    path: string;
 }
 
 export interface MetaResponse {
-    name: string,
+    name: string;
     location: {
         type: "localJson" | "localXml" | "remoteJson",
-        remoteUrl?: string
-    },
-    description: string,
+        remoteUrl?: string,
+    };
+    description: string;
     author: {
         name: string,
         url?: string,
-        avatarUrl?: string
-    }
+        avatarUrl?: string,
+    };
 }
 
 export interface Repository {
-    name: string,
-    codeurl: string,
-    introduction: string,
-    creator: string,
-    creatorurl?: string,
-    iconurl?: string
+    name: string;
+    codeurl: string;
+    introduction: string;
+    creator: string;
+    creatorurl?: string;
+    iconurl?: string;
 }
