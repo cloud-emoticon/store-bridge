@@ -15,6 +15,8 @@ const fetchIntervalSeconds = process.env.FETCH_INTERVAL_SECONDS as unknown as nu
 const app = express();
 app.set("view engine", "ejs");
 
+app.use(cors());
+
 let repos: Repository[];
 (async () => {
     console.log("fetching repos...");
@@ -45,7 +47,7 @@ app.get("/", async (req, res) => {
     });
 });
 
-app.get("/json", cors(), async (req, res) => {
+app.get("/json", async (req, res) => {
     try {
         res.json(repos);
     } catch (e) {
